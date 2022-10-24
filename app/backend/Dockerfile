@@ -3,8 +3,12 @@ WORKDIR /app-backend
 
 EXPOSE 3001
 
+COPY package.json .
+
+RUN ["npm", "install"]
+
 COPY . .
 
-RUN ["npm install", "npm run build"]
+RUN ["npm", "run", "build"]
 
 CMD ["npm", "start"]

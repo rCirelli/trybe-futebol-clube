@@ -3,8 +3,12 @@ WORKDIR /app-frontend
 
 EXPOSE 3000
 
+COPY package.json .
+
+RUN ["npm", "install"]
+
 COPY . .
 
-RUN ["npm install", "npm run build"]
+RUN ["npm", "run", "build"]
 
 CMD ["npm", "start"]
