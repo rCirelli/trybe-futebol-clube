@@ -6,6 +6,6 @@ EXPOSE 3001
 COPY . .
 
 RUN npm install
-ENTRYPOINT ["npm", "run", "build"];
+ENTRYPOINT ["npm", "run", "build"]
 
 CMD ["npm", "start"]
