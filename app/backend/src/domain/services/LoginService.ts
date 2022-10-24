@@ -7,16 +7,18 @@ import jwtUtils from '../../helpers/JwtUtils';
 
 export default class LoginService {
   public static async verify(credentials: UserCredentials) {
+    const exception = new HttpException(StatusCodes.NOT_FOUND, 'Incorrect email or password');
+
     const { email, password } = credentials;
     const user = await UserModel.findOne({ where: { email } });
 
     if (!user) {
-      throw new HttpException(StatusCodes.NOT_FOUND, 'email or password not found');
+      throw exception;
     }
 
     const validPassword = bcrypt.compareSync(password, user.password);
     if (!validPassword) {
-      throw new HttpException(StatusCodes.BAD_REQUEST, 'password invalid');
+      throw exception;
     }
 
     return jwtUtils.generateToken(user);
