@@ -1,6 +1,7 @@
 import loginRoute from './login.routes';
+import teamsRoute from './teams.routes';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   loginRoute,
+  teamsRoute,
 };
