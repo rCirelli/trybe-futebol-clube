@@ -17,4 +17,10 @@ export default class TeamController {
     const matches = await this.matchService.getAll(param);
     res.status(StatusCodes.OK).send(matches);
   }
+
+  public async create(req: Request, res: Response) {
+    const matchData = req.body;
+    const newMatch = await this.matchService.create(matchData);
+    res.status(StatusCodes.CREATED).send(newMatch);
+  }
 }
