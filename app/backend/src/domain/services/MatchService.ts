@@ -21,4 +21,9 @@ export default class MatchService {
         ],
       });
   }
+
+  public async create(matchData: Match, inProgress = true): Promise<Match> {
+    const newMatch = await this.matchModel.create({ ...matchData, inProgress });
+    return newMatch;
+  }
 }
