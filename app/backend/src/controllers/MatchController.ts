@@ -5,8 +5,16 @@ import MatchService from '../domain/services/MatchService';
 export default class TeamController {
   private matchService = new MatchService();
 
-  public async getAll(_req: Request, res: Response) {
-    const matches = await this.matchService.getAll();
+  public async getAll(req: Request, res: Response) {
+    const { inProgress } = req.query;
+    let param: boolean | null;
+    if (inProgress === undefined) {
+      param = null;
+    } else {
+      param = inProgress === 'true' ? !!1 : !!0;
+    }
+
+    const matches = await this.matchService.getAll(param);
     res.status(StatusCodes.OK).send(matches);
   }
 }
