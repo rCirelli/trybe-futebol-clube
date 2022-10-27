@@ -9,5 +9,6 @@ const matchController = new MatchController();
 router.get('/', (req, res) => matchController.getAll(req, res));
 router.post('/', tokenAuth, matchValidation, (req, res) => matchController.create(req, res));
 router.patch('/:id/finish', (req, res) => matchController.finishMatch(req, res));
+router.patch('/:id', (req, res) => matchController.setGoals(req, res));
 
 export default router;

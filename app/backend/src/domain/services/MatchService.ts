@@ -42,4 +42,23 @@ export default class MatchService {
       throw e;
     }
   }
+
+  public async setGoals(
+    id: Match['id'],
+    homeTeamGoals: Match['homeTeamGoals'],
+    awayTeamGoals: Match['awayTeamGoals'],
+  ): Promise<void> {
+    try {
+      await sequelize.transaction(async (t) => {
+        const [affectedRows] = await this.matchModel.update(
+          { homeTeamGoals, awayTeamGoals },
+          { where: { id }, transaction: t },
+        );
+        return affectedRows;
+      });
+    } catch (e) {
+      console.log('ERROR', e);
+      throw e;
+    }
+  }
 }

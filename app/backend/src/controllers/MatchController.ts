@@ -29,4 +29,11 @@ export default class TeamController {
     await this.matchService.finishMatch(Number(id));
     res.status(StatusCodes.OK).send({ message: 'Finished' });
   }
+
+  public async setGoals(req: Request, res: Response) {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    await this.matchService.setGoals(Number(id), homeTeamGoals, awayTeamGoals);
+    res.status(StatusCodes.OK).send({ message: 'Goals updated' });
+  }
 }
