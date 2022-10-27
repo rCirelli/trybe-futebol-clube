@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import * as jwt from 'jsonwebtoken';
+import { StatusCodes } from 'http-status-codes';
 import IUser from '../domain/entities/IUser';
+import HttpException from './HttpException';
 
 const secret = process.env.JWT_SECRET as string;
 
@@ -17,8 +19,12 @@ class JwtUtils {
   }
 
   public decodeToken(token: string): jwt.JwtPayload {
-    const decoded = this.jwt.verify(token, this.jwtSecret);
-
+    let decoded: jwt.JwtPayload | string;
+    try {
+      decoded = this.jwt.verify(token, this.jwtSecret);
+    } catch (error) {
+      throw new HttpException(StatusCodes.UNAUTHORIZED, 'Token must be a valid token');
+    }
     return decoded as jwt.JwtPayload;
   }
 }
