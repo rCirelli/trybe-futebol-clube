@@ -1,6 +1,7 @@
 import Team from '../../database/models/TeamModel';
 import MatchModel from '../../database/models/MatchModel';
 import Match from '../entities/Match';
+import sequelize from '../../database/models';
 
 export default class MatchService {
   private matchModel = MatchModel;
@@ -22,8 +23,23 @@ export default class MatchService {
       });
   }
 
-  public async create(matchData: Match, inProgress = true): Promise<Match> {
-    const newMatch = await this.matchModel.create({ ...matchData, inProgress });
+  public async create(matchData: Match): Promise<Match> {
+    const newMatch = await this.matchModel.create({ ...matchData, inProgress: true });
     return newMatch;
+  }
+
+  public async finishMatch(id: Match['id']): Promise<void> {
+    try {
+      await sequelize.transaction(async (t) => {
+        const [affectedRows] = await this.matchModel.update(
+          { inProgress: false },
+          { where: { id }, transaction: t },
+        );
+        return affectedRows;
+      });
+    } catch (e) {
+      console.log('ERROR', e);
+      throw e;
+    }
   }
 }
