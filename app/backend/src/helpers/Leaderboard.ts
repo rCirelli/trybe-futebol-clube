@@ -14,7 +14,7 @@ export default class Leaderboard {
   constructor(
     private teams: Team[],
     private finishedMatches: Match[],
-    private type: 'homeTeam' | 'awayTeam' | 'general' = 'general',
+    private type: 'home' | 'away' | 'general' = 'general',
   ) {
     this.initialize();
   }
@@ -22,10 +22,10 @@ export default class Leaderboard {
   private initialize(): void {
     const typeTeams: Team[] = [];
     this.finishedMatches.forEach(({ homeTeam, awayTeam }) => {
-      if (this.type === 'homeTeam' || this.type === 'general') {
+      if (this.type === 'home' || this.type === 'general') {
         typeTeams.push(this.teams.find(({ id }) => id === homeTeam) as Team);
       }
-      if (this.type === 'awayTeam' || this.type === 'general') {
+      if (this.type === 'away' || this.type === 'general') {
         typeTeams.push(this.teams.find(({ id }) => id === awayTeam) as Team);
       }
     });
@@ -45,10 +45,10 @@ export default class Leaderboard {
     this.teams.forEach((team) => {
       const teamStats = this.leaderboard.find(({ name }) => team.teamName === name);
       const playedMatches: Match[] = this.finishedMatches.filter((match) => {
-        if ((this.type === 'homeTeam' || this.type === 'general') && match.homeTeam === team.id) {
+        if ((this.type === 'home' || this.type === 'general') && match.homeTeam === team.id) {
           return match;
         }
-        if ((this.type === 'awayTeam' || this.type === 'general') && match.awayTeam === team.id) {
+        if ((this.type === 'away' || this.type === 'general') && match.awayTeam === team.id) {
           return match;
         }
         return match.homeTeam === team.id;
@@ -71,7 +71,7 @@ export default class Leaderboard {
 
       this.computeMatch(match, teams.home as LeaderboardItem, teams.away as LeaderboardItem);
 
-      // const newTeam: LeaderboardItem = this.type === 'homeTeam'
+      // const newTeam: LeaderboardItem = this.type === 'home'
       //   ? new LeaderboardItem(this.teams.find(({ id }) => (
       //     match.homeTeam === id)) as Team)
       //   : new LeaderboardItem(this.teams.find(({ id }) => (
@@ -87,10 +87,10 @@ export default class Leaderboard {
   }
 
   private computeMatch(match: Match, homeTeam: LeaderboardItem, awayTeam: LeaderboardItem): void {
-    if (this.type === 'homeTeam' || this.type === 'general') {
+    if (this.type === 'home' || this.type === 'general') {
       Leaderboard.computeHome(match, homeTeam);
     }
-    if (this.type === 'awayTeam' || this.type === 'general') {
+    if (this.type === 'away' || this.type === 'general') {
       Leaderboard.computeAway(match, awayTeam);
     }
   }
