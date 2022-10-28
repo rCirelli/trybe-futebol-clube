@@ -16,10 +16,15 @@ export default class Leaderboard {
     private finishedMatches: Match[],
     private type: 'home' | 'away' | 'general' = 'general',
   ) {
+    if (this.type !== 'home' && this.type !== 'away') {
+      this.type = 'general';
+    }
     this.initialize();
   }
 
   private initialize(): void {
+    console.log(this.type);
+
     const typeTeams: Team[] = [];
     this.finishedMatches.forEach(({ homeTeam, awayTeam }) => {
       if (this.type === 'home' || this.type === 'general') {

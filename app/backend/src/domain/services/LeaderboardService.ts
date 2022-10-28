@@ -7,7 +7,7 @@ export default class LeaderboardService {
   private teamService = new TeamService();
   private matchService = new MatchService();
 
-  public async leaderboard(type:'home' | 'away' | 'general' = 'general')
+  public async leaderboard(type:'home' | 'away')
     : Promise<LeaderboardItem[]> {
     const params = await Promise.all([
       await this.teamService.getAll(),
