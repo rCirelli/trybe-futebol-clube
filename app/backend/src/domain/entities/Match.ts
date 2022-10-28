@@ -2,9 +2,9 @@ import IMatch from './IMatch';
 
 export default class Match implements IMatch {
   public readonly id: number;
-  public homeTeam: number;
+  public readonly homeTeam: number;
   public homeTeamGoals: number;
-  public awayTeam: number;
+  public readonly awayTeam: number;
   public awayTeamGoals: number;
   public inProgress: boolean;
 

@@ -1,6 +1,6 @@
 import ITeam from './ITeam';
 
-export default class User implements ITeam {
+export default class Team implements ITeam {
   public readonly id: number;
   public teamName: string;
 
