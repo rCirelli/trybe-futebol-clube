@@ -1,4 +1,4 @@
-import Team from '../../database/models/TeamModel';
+import TeamModel from '../../database/models/TeamModel';
 import MatchModel from '../../database/models/MatchModel';
 import Match from '../entities/Match';
 import sequelize from '../../database/models';
@@ -10,15 +10,15 @@ export default class MatchService {
     return inProgress === null
       ? this.matchModel.findAll({
         include: [
-          { model: Team, as: 'teamHome', attributes: ['teamName'] },
-          { model: Team, as: 'teamAway', attributes: ['teamName'] },
+          { model: TeamModel, as: 'teamHome', attributes: ['teamName'] },
+          { model: TeamModel, as: 'teamAway', attributes: ['teamName'] },
         ],
       })
       : this.matchModel.findAll({
         where: { inProgress },
         include: [
-          { model: Team, as: 'teamHome', attributes: ['teamName'] },
-          { model: Team, as: 'teamAway', attributes: ['teamName'] },
+          { model: TeamModel, as: 'teamHome', attributes: ['teamName'] },
+          { model: TeamModel, as: 'teamAway', attributes: ['teamName'] },
         ],
       });
   }
