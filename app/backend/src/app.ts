@@ -33,6 +33,7 @@ class App {
     this.app.use('/login', router.loginRoute);
     this.app.use('/teams', router.teamsRoute);
     this.app.use('/matches', router.matchesRoute);
+    this.app.use('/leaderboard', router.leaderboardsRoute);
   }
 
   public start(PORT: string | number):void {
