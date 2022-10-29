@@ -14,7 +14,7 @@ export default class LeaderboardItem implements ILeaderboardItem {
   public efficiency: number;
 
   constructor(team: Team) {
-    this.name = team.teamName || '';
+    this.name = team.teamName;
     this.totalPoints = 0;
     this.totalGames = 0;
     this.totalVictories = 0;
@@ -57,6 +57,6 @@ export default class LeaderboardItem implements ILeaderboardItem {
 
   private updateEfficiency(): void {
     const efficiency = ((this.totalPoints / (this.totalGames * 3)) * 100).toFixed(2);
-    this.efficiency = Number(efficiency);
+    this.efficiency = efficiency as unknown as number;
   }
 }

@@ -101,4 +101,12 @@ describe('Test login endpoint', () => {
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.deep.equal({ "role": "admin" });
   });
+
+  it('should respond with error when token not present', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/login/validate');
+    expect(chaiHttpResponse.status).to.be.equal(403);
+    expect(chaiHttpResponse.body).to.deep.equal({ message: 'Authotization token missing' });
+  });
 });

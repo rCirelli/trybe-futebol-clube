@@ -23,8 +23,6 @@ export default class Leaderboard {
   }
 
   private initialize(): void {
-    console.log(this.type);
-
     const typeTeams: Team[] = [];
     this.finishedMatches.forEach(({ homeTeam, awayTeam }) => {
       if (this.type === 'home' || this.type === 'general') {
@@ -46,24 +44,24 @@ export default class Leaderboard {
     return this.leaderboard;
   }
 
-  private getStatsByTeam(): void {
-    this.teams.forEach((team) => {
-      const teamStats = this.leaderboard.find(({ name }) => team.teamName === name);
-      const playedMatches: Match[] = this.finishedMatches.filter((match) => {
-        if ((this.type === 'home' || this.type === 'general') && match.homeTeam === team.id) {
-          return match;
-        }
-        if ((this.type === 'away' || this.type === 'general') && match.awayTeam === team.id) {
-          return match;
-        }
-        return match.homeTeam === team.id;
-      });
+  // private getStatsByTeam(): void {
+  //   this.teams.forEach((team) => {
+  //     const teamStats = this.leaderboard.find(({ name }) => team.teamName === name);
+  //     const playedMatches: Match[] = this.finishedMatches.filter((match) => {
+  //       if ((this.type === 'home' || this.type === 'general') && match.homeTeam === team.id) {
+  //         return match;
+  //       }
+  //       if ((this.type === 'away' || this.type === 'general') && match.awayTeam === team.id) {
+  //         return match;
+  //       }
+  //       return match.homeTeam === team.id;
+  //     });
 
-      playedMatches.forEach((match) => {
-        this.computeMatch(match, teamStats as LeaderboardItem, teamStats as LeaderboardItem);
-      });
-    });
-  }
+  //     playedMatches.forEach((match) => {
+  //       this.computeMatch(match, teamStats as LeaderboardItem, teamStats as LeaderboardItem);
+  //     });
+  //   });
+  // }
 
   private getStatsByMatch(): void {
     this.finishedMatches.forEach((match) => {

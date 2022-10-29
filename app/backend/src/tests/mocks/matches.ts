@@ -675,8 +675,17 @@ const matches = [
   }
 ];
 
+const newMatch = {
+  "id": 49,
+  "homeTeam": 16,
+  "awayTeam": 8,
+  "homeTeamGoals": 2,
+  "awayTeamGoals": 2,
+  "inProgress": true
+}
+
 const inProgress = matches.filter((match) => match.inProgress === true) as Array<Match>;
 const finished = matches.filter((match) => match.inProgress === false) as Array<Match>;
 
 export default matches as Array<Match>;
-export { inProgress, finished };
+export { inProgress, finished, newMatch };
